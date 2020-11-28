@@ -45,15 +45,6 @@
         );
       });
 
-      await it("permissions overriden", () => {
-        const permissions = window.navigator.permissions;
-        if (
-          permissions.query.toString() !==
-          "function toString() { [native code] }"
-        )
-          return true;
-      });
-
       // In order to properly avoid when we have multiple bots working in the same machine, we need to mock some unique identifications into the plugins, and save them into the user bot database.
       await it("plugins length is zero", () => {
         return navigator.plugins.length === 0;
@@ -70,6 +61,17 @@
         alert("Press ok");
         let elapse = Date.now() - start;
         console.log(elapse);
+      });
+
+      await it("devtools attached", () => {
+        let devtools = 0;
+        const something = /./;
+        something.toString = function () {
+          devtools++;
+          return "spooky";
+        };
+        console.debug(something);
+        return devtools > 1;
       });
     };
     headlessDetection(window);
