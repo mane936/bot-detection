@@ -15,6 +15,21 @@
       }
       root.addEventListener("mouseenter", () => onMouseEnter(root));
       root.addEventListener("mouseleave", () => onMouseLeave(root));
+
+      function findScreenCoords(mouseEvent) {
+        var xpos;
+        var ypos;
+
+        if (mouseEvent) {
+          xpos = mouseEvent.screenX;
+          ypos = mouseEvent.screenY;
+        } else {
+          xpos = window.event.screenX;
+          ypos = window.event.screenY;
+        }
+        console.log(`MOUSE || X: ${xpos} || Y: ${ypos}`);
+      }
+      document.getElementById("body-root").onmousemove = findScreenCoords;
     };
     mouseEvents(root);
 
@@ -56,12 +71,12 @@
       });
 
       // Auto accepting dialogs
-      await it("timming test", () => {
-        let start = Date.now();
-        alert("Press ok");
-        let elapse = Date.now() - start;
-        console.log(elapse);
-      });
+      //      await it("timming test", () => {
+      //        let start = Date.now();
+      //        alert("Press ok");
+      //        let elapse = Date.now() - start;
+      //        console.log(elapse);
+      //      });
 
       await it("devtools attached", () => {
         let devtools = 0;
